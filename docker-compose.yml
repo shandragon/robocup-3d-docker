@@ -1,0 +1,19 @@
+version: '3'
+services:
+  rcssserver3d:
+    build: 
+      context: . 
+      dockerfile: rcssserver3d/Dockerfile
+    container_name: rcssserver3d 
+    restart: unless-stopped 
+    ports:
+      - "3200:3200"
+      - "3100:3100"
+  times:
+    build: 
+      context: . 
+      dockerfile: times/Dockerfile
+    container_name: times
+    restart: unless-stopped
+    depends_on:
+      - rcssserver3d
