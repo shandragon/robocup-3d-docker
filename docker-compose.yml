@@ -1,19 +1,31 @@
-version: '3'
 services:
   rcssserver3d:
     build: 
-      context: . 
-      dockerfile: rcssserver3d/Dockerfile
+      context: ./rcssserver3d
+      dockerfile: Dockerfile
     container_name: rcssserver3d 
-    restart: unless-stopped 
+    restart: no 
     ports:
       - "3200:3200"
       - "3100:3100"
-  times:
+    networks:
+      rcss3d-network:
+        ipv4_address: 10.10.1.2
+  rcss3d-times:
     build: 
-      context: . 
-      dockerfile: times/Dockerfile
-    container_name: times
-    restart: unless-stopped
+      context: ./times
+      dockerfile: Dockerfile
+    container_name: rcss3d-times
+    restart: no
     depends_on:
       - rcssserver3d
+    networks:
+      rcss3d-network:
+        ipv4_address: 10.10.1.3
+
+networks:
+  rcss3d-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.1.0/24

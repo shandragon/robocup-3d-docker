@@ -1,11 +1,28 @@
 FROM ubuntu:24.04
 
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get clean
 
-RUN buildDeps='gpg g++ git make cmake libfreetype6-dev libode-dev libsdl2-dev ruby ruby-dev libdevil-dev libboost-dev libboost-thread-dev libboost-regex-dev libboost-system-dev qtbase5-dev qtchooser qt5-qmake libqt5opengl5-dev wget'; \
-    apt-get update \
-    && apt-get install -y $buildDeps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget \
+    gpg \
+    g++ \
+    git \
+    make \
+    cmake \
+    libfreetype6-dev \
+    libode-dev \
+    libsdl2-dev \
+    ruby \
+    ruby-dev \
+    libdevil-dev \
+    libboost-dev \
+    libboost-thread-dev \
+    libboost-regex-dev \
+    libboost-system-dev \
+    qtbase5-dev \
+    qtchooser \
+    qt5-qmake \
+    libqt5opengl5-dev
 
 RUN apt-get install -y openjdk-17-jre openjdk-17-jdk
 
