@@ -2,21 +2,25 @@ FROM ubuntu:24.04
 
 RUN apt-get update
 
-RUN apt-get install -y rsync openjdk-17-jdk git wget
-
-RUN apt-get install -y openjdk-17-jre mesa-utils xserver-xorg-video-all
-
-RUN wget https://github.com/PetrusNoleto/Error-in-install-cisco-packet-tracer-in-ubuntu-23.10-unmet-dependencies/releases/download/CiscoPacketTracerFixUnmetDependenciesUbuntu23.10/libgl1-mesa-glx_23.0.4-0ubuntu1.22.04.1_amd64.deb && dpkg -i libgl1-mesa-glx_23.0.4-0ubuntu1.22.04.1_amd64.deb
+RUN apt-get install -y --no-install-recommends \
+    rsync \
+    git \
+    openjdk-17-jre \
+    openjdk-17-jdk \
+    mesa-utils \
+    libgl1 \
+    libglx-mesa0 \
+    xserver-xorg-video-all \
+    libnvidia-egl-wayland1
 
 ARG ROBOVIZ_RELEASE=2.0.0
 
-RUN git clone --branch $ROBOVIZ_RELEASE --depth 1 https://github.com/magmaOffenburg/RoboViz.git /tmp/RoboViz \
-    && cd /tmp/RoboViz/scripts \
+RUN git clone --branch $ROBOVIZ_RELEASE --depth 1 https://github.com/magmaOffenburg/RoboViz.git /home/ubuntu/RoboViz \
+    && cd /home/ubuntu/RoboViz/scripts \
     && chmod +x ../gradlew \
     && ./build.sh \
-    && mv ../bin /roboviz \
-    && cd / \
-    && rm -r /tmp/RoboViz \
-    && apt-get purge -y --auto-remove $buildDeps && rm -rf /var/lib/apt/lists/*
+    && cd /home/ubuntu \
+    && mv /home/ubuntu/RoboViz/bin /home/ubuntu/roboviz \
+    && rm -r /home/ubuntu/RoboViz 
     
-ENTRYPOINT ["/roboviz/roboviz.sh"]
+ENTRYPOINT ["/home/ubuntu/roboviz/roboviz.sh"]

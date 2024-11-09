@@ -42,4 +42,4 @@ RUN git clone --branch RCSSSERVER3D_${RCSSSERVER3D_RELEASE}_RELEASE --depth 1 ht
 
 RUN ldconfig
 
-CMD ["rcssserver3d"]
+ENTRYPOINT ["rcssserver3d"]
