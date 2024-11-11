@@ -1,32 +1,17 @@
 services:
   rcssserver3d:
-    build: 
+    build:
       context: ./rcssserver3d
       dockerfile: Dockerfile
-    container_name: rcssserver3d 
+    container_name: rcssserver3d
     ports:
       - "3200:3200"
       - "3100:3100"
     networks:
       rcss3d-network:
         ipv4_address: 10.10.1.2
-  rcss3d-roboviz:
-    build: 
-      context: ./roboviz
-      dockerfile: Dockerfile
-    volumes:
-      - "/tmp/.X11-unix:/tmp/.X11-unix"
-    environment:
-      - DISPLAY=${DISPLAY}
-    container_name: rcss3d-roboviz
-    command: ["--serverHost=rcssserver3d"]
-    depends_on:
-      - rcssserver3d
-    networks:
-      rcss3d-network:
-        ipv4_address: 10.10.1.4
   rcss3d-times:
-    build: 
+    build:
       context: ./times
       dockerfile: Dockerfile
     container_name: rcss3d-times
