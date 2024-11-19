@@ -14,11 +14,11 @@ services:
     build:
       context: ./roboviz
       dockerfile: Dockerfile
+    container_name: rcss3d-roboviz
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
     environment:
-      - DISPLAY=${DISPLAY}
-    container_name: rcss3d-roboviz
+      - DISPLAY=$DISPLAY
     command: ["--serverHost=rcssserver3d"]
     depends_on:
       - rcssserver3d
