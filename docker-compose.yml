@@ -18,6 +18,16 @@ services:
     networks:
       rcss3d-network:
         ipv4_address: 10.10.1.3
+  rcss3d-agent:
+    build:
+      context: ./agent
+      dockerfile: Dockerfile
+    container_name: rcss3d-agent
+    volumes:
+      - "$HOME/Workspace:/home" # Configure seu workspace aqui
+    networks:
+      rcss3d-network:
+        ipv4_address: 10.10.1.5
 
 networks:
   rcss3d-network:
