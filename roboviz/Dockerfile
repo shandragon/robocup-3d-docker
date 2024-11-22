@@ -15,7 +15,7 @@ RUN apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the DISPLAY environment variable
-ENV DISPLAY=:0
+ENV DISPLAY=:1
 ENV XDG_RUNTIME_DIR=/tmp
 
 ARG ROBOVIZ_RELEASE=2.0.0
@@ -25,7 +25,12 @@ RUN git clone --branch $ROBOVIZ_RELEASE --depth 1 https://github.com/magmaOffenb
     && chmod +x ../gradlew \
     && ./build.sh \
     && cd /home/ubuntu \
-    && mv /home/ubuntu/RoboViz/bin /home/ubuntu/roboviz \
+    && mv /home/ubuntu/RoboViz/bin/* /usr/local/bin \
     && rm -r /home/ubuntu/RoboViz
+
+RUN cd /usr/local/bin && ln -s roboviz.sh /usr/local/bin/roboviz
+RUN chmod +x /usr/local/bin/RoboViz.jar
+
+WORKDIR /usr/local/bin
     
-ENTRYPOINT ["/home/ubuntu/roboviz/roboviz.sh"]
+ENTRYPOINT ["roboviz"]
