@@ -2,18 +2,32 @@
 
 ## Sobre
 
+Este projeto foi desenvolvido para simplificar a utilização do ambiente de desenvolvimento da liga de simulação 3D da RoboCup. Ele conta com três containers de serviços, que podem ser iniciados por meio do docker-compose:
 
+- Um container dedicado ao servidor de simulação da liga.
+- Um container para os binários das equipes participantes do mundial.
+- Um container para a configuração e utilização do time base.
+
+Para iniciar todos os serviços é necessário executar o comando 'docker-compose up'.
 
 ## Comandos básicos
 
-Alguns comandos úteis para manipulação dos projetos no docker:
+Alguns comandos úteis para manipulação dos projetos no docker.
 
-- Informar o IP do servidor: **docker inspect rcssserver3d | grep "IPAddress"**
+Comandos de inicialização:
+- Iniciar o container do servidor: **docker start rcssserver3d**
+- Iniciar o container do agente: **docker start rcss3d-agent**
+- Iniciar o container dos times de teste: **docker start rcss3d-times**
+
+Comandos de acesso:
 - Acessar a máquina do servidor: **docker exec -it rcssserver3d bash**
 - Acessar a máquina do agente: **docker exec -it rcss3d-agent bash**
 - Acessar a máquina dos times de teste: **docker exec -it rcss3d-times bash**
 
-## Seu ambiente de desenvolvimento
+Comandos utilitários:
+- Informar o IP do servidor: **docker inspect rcssserver3d | grep "IPAddress"**
+
+## Ambiente de desenvolvimento
 
 O container de desenvolvimento do agente foi configurado especificamente para o código-base do FC Portugal. Ele inclui o Python e todas as dependências necessárias para o funcionamento adequado do ambiente.
 
