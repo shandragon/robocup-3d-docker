@@ -24,7 +24,7 @@ RUN apt-get install -y --no-install-recommends \
     qt5-qmake \
     libqt5opengl5-dev
 
-ARG RCSSSERVER3D_RELEASE=0.7.7
+ARG RCSSSERVER3D_RELEASE=0.7.8
 
 RUN git clone --branch RCSSSERVER3D_${RCSSSERVER3D_RELEASE}_RELEASE --depth 1 https://gitlab.com/robocup-sim/SimSpark.git /tmp/SimSpark \
 && mkdir -p /tmp/SimSpark/spark/build \
